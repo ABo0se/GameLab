@@ -14,6 +14,7 @@ public class newgirl : MonoBehaviour
     Animator am;
     int jump;
     int slide;
+    public GameObject ObjectChar2;
     /// LifeMechanic ////
 
     public TextMeshProUGUI text5;
@@ -36,6 +37,7 @@ public class newgirl : MonoBehaviour
     void Update()
     {
         transform.position += new Vector3(9f, 0, 0) * Time.deltaTime;
+
         if (Input.GetKeyDown(Jump) && jump < 2)
         {
             jump++;
@@ -84,6 +86,14 @@ public class newgirl : MonoBehaviour
                 SceneManager.LoadScene("ResultScore");
             }
         }
+    }
+    public Vector3 GetPosition()
+    {
+       if (ObjectChar2 == null)
+           ObjectChar2 = GameObject.FindGameObjectWithTag("Player");
+        Vector3 Playerposition;
+        Playerposition = ObjectChar2.transform.position;
+        return Playerposition;
     }
     public void IncreaseLife()
     {
