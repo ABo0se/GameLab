@@ -35,6 +35,7 @@ public class newgirl : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
+        transform.position += new Vector3(9f, 0, 0) * Time.deltaTime;
         if (Input.GetKeyDown(Jump) && jump < 2)
         {
             jump++;
@@ -66,11 +67,11 @@ public class newgirl : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Obstacle"))
         {
+            Destroy(other.gameObject);
             if (life - 1 > 0)
             {
                 life--;
                 text5.text = life.ToString();
-                Destroy(other.gameObject);
             }
             else
             {
