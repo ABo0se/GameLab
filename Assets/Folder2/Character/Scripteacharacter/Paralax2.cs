@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Paralax : MonoBehaviour
+public class Paralax2 : MonoBehaviour
 {
     private Transform cameraTransform;
     private float textureunitsizeX;
@@ -16,10 +16,10 @@ public class Paralax : MonoBehaviour
 
     void Update()
     {
-        if (Mathf.Abs(cameraTransform.position.x + 19.9f - transform.position.x) >= textureunitsizeX)
+        if ((cameraTransform.position.x - transform.position.x - 138.8f) >= textureunitsizeX)
         {
             float offsetPositionX = (cameraTransform.position.x - transform.position.x) % textureunitsizeX;
-            transform.position = new Vector3(cameraTransform.position.x + offsetPositionX, transform.position.y);    
-        }    
+            transform.position = new Vector3(cameraTransform.position.x + offsetPositionX, transform.position.y);
+        }
     }
 }

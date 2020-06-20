@@ -57,7 +57,7 @@ public class LevelGenerator : MonoBehaviour
         }
         if (Vector3.Distance(PositionChar, lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART && (spawntime % 5 != 0))
         {
-            if (Time.timeScale <= 1.6)
+            if (Time.timeScale <= 1.8)
             {
                 Time.timeScale += 0.05f;
                 PlayerPrefs.SetFloat("Timescale", Time.timeScale);
