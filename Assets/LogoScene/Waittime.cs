@@ -10,6 +10,7 @@ public class Waittime : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            PlayerRef.playfirsttime();
             SceneManager.LoadScene("MainmenuScene");
         }
     }

@@ -12,8 +12,7 @@ public class CameraScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //(realcode) camerafollowtarget = PlayerPrefs.GetInt(SelectedCharacter);
-        camerafollowtarget = 2;
+        camerafollowtarget = PlayerPrefs.GetInt(SelectedCharacter);
     }
 
     // Update is called once per frame

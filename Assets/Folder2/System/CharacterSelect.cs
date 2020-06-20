@@ -14,8 +14,7 @@ public class CharacterSelect : MonoBehaviour
         Char1.SetActive(false);
         Char2.SetActive(false);
         Char3.SetActive(false);
-        Characteruse = 2;
-        //(realcode) haracteruse = PlayerPrefs.GetInt(SelectedCharacter);
+        Characteruse = PlayerPrefs.GetInt(SelectedCharacter);
         switch (Characteruse)
         {
             case 1:

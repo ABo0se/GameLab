@@ -12,6 +12,16 @@ public class ToggleBoost1 : MonoBehaviour
     private readonly string Scoreboost = "Scoreboost";
     private readonly string Timeboost = "Timeboost";
 
+    private void Awake()
+    {
+        //while (PlayerRef.Play1sttime == 1)
+        //{
+        //    PlayerPrefs.SetInt(Scoreboost, 0);
+        //    PlayerRef.Play1sttime++;
+        //    PlayerPrefs.SetInt(Timeboost, 0);
+         //   PlayerRef.Play1sttime++;
+        //}
+    }
     private void Update()
     {
         if (PlayerRef.money - CostTimeboost < 0 && TimeBooster.isOn == false)
@@ -23,6 +33,15 @@ public class ToggleBoost1 : MonoBehaviour
             ScoreBooster.interactable = false;
         else
             ScoreBooster.interactable = true;
+        //////////////////////////////////////////
+        if (TimeBooster.isOn == true)
+            PlayerPrefs.SetInt(Timeboost, 1);
+        else if (TimeBooster.isOn == false)
+            PlayerPrefs.SetInt(Timeboost, 0);
+        if (ScoreBooster.isOn == true)
+                PlayerPrefs.SetInt(Scoreboost, 1);
+        else if (TimeBooster.isOn == false)
+            PlayerPrefs.SetInt(Scoreboost, 0);
     }
     public void TimeOnValueChange()
     {
@@ -30,7 +49,6 @@ public class ToggleBoost1 : MonoBehaviour
         {
             PlayerRef.money -= CostTimeboost;
             PlayerPrefs.SetInt(Timeboost, 1);
-
         }
         else if (TimeBooster.isOn == false)
         {

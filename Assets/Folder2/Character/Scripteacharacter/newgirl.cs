@@ -22,10 +22,14 @@ public class newgirl : MonoBehaviour
     private readonly string Summarymoney = "Summarymoney";
     int maxlife = 2;
     int life = 2;
+    public bool indestructable = false;
+    public bool bigpowerupstate = false;
 
     //Use this for initialzation
     void Start()
     {
+        indestructable = false;
+        bigpowerupstate = false;
         jump = 0;
         slide = 0;
         rb = GetComponent<Rigidbody2D>();
@@ -36,7 +40,7 @@ public class newgirl : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(9f, 0, 0) * Time.deltaTime;
+        transform.position += new Vector3(10f, 0, 0) * Time.deltaTime;
 
         if (Input.GetKeyDown(Jump) && jump < 2)
         {
@@ -70,24 +74,36 @@ public class newgirl : MonoBehaviour
         if (other.gameObject.CompareTag("Obstacle"))
         {
             Destroy(other.gameObject);
-            if (life - 1 > 0)
+            if (indestructable == false)
             {
-                life--;
-                text5.text = life.ToString();
+                if (life - 1 > 0)
+                {
+                    life--;
+                    text5.text = life.ToString();
+                }
+                else
+                {
+                    life--;
+                    text5.text = life.ToString();
+                    Time.timeScale = 1f;
+                    PlayerPrefs.SetFloat("Timescale", 1f);
+                    Pause.GameIsPaused = false;
+                    PlayerPrefs.SetInt(Summaryscore, Score.score2);
+                    PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
+                    SceneManager.LoadScene("ResultScore");
+                }
             }
             else
             {
-                life--;
-                text5.text = life.ToString();
-                Time.timeScale = 1f;
-                Pause.GameIsPaused = false;
-                PlayerPrefs.SetInt(Summaryscore, Score.score2);
-                PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
-                SceneManager.LoadScene("ResultScore");
             }
         }
+        if (other.gameObject.CompareTag("Life"))
+        {
+            Destroy(other.gameObject);
+            IncreaseLife();
+        }
     }
-    public Vector3 GetPosition()
+    public Vector3 GetPosition2()
     {
        if (ObjectChar2 == null)
            ObjectChar2 = GameObject.FindGameObjectWithTag("Player");
@@ -98,9 +114,15 @@ public class newgirl : MonoBehaviour
     public void IncreaseLife()
     {
         if (life + 1 > maxlife)
+        {
             life = maxlife;
+            text5.text = life.ToString();
+        }
         else
+        {
             life++;
+            text5.text = life.ToString();
+        }
     }
 }
     

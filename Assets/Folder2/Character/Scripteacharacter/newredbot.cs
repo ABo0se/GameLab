@@ -23,6 +23,9 @@ public class newredbot : MonoBehaviour
     private readonly string Summarymoney = "Summarymoney";
     int maxlife = 3;
     int life = 3;
+    public bool indestructable = false;
+    public bool bigpowerupstate = false;
+    public GameObject ObjectChar3;
 
 
     //Use this for initialzation
@@ -39,6 +42,8 @@ public class newredbot : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
+        transform.position += new Vector3(10f, 0, 0) * Time.deltaTime;
+
         if (Input.GetKeyDown(RedbotJump) && redbotjump < 2)
         {
             redbotjump++;
@@ -70,29 +75,52 @@ public class newredbot : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            if (life - 1 > 0)
+            Destroy(other.gameObject);
+            if (indestructable == false)
             {
-                life--;
-                text3.text = life.ToString();
-                Destroy(other.gameObject);
+                if (life - 1 > 0)
+                {
+                    life--;
+                    text3.text = life.ToString();
+                }
+                else
+                {
+                    life--;
+                    text3.text = life.ToString();
+                    Time.timeScale = 1f;
+                    PlayerPrefs.SetFloat("Timescale", 1f);
+                    Pause.GameIsPaused = false;
+                    PlayerPrefs.SetInt(Summaryscore, Score.score2);
+                    PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
+                    SceneManager.LoadScene("ResultScore");
+                }
             }
-            else
-            {
-                life--;
-                text3.text = life.ToString();
-                Time.timeScale = 1f;
-                Pause.GameIsPaused = false;
-                PlayerPrefs.SetInt(Summaryscore, Score.score2);
-                PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
-                SceneManager.LoadScene("ResultScore");
-            }
+        }
+        if (other.gameObject.CompareTag("Life"))
+        {
+            Destroy(other.gameObject);
+            IncreaseLife();
         }
     }
     public void IncreaseLife()
     {
         if (life + 1 > maxlife)
+        {
             life = maxlife;
+            text3.text = life.ToString();
+        }
         else
+        {
             life++;
+            text3.text = life.ToString();
+        }
+    }
+    public Vector3 GetPosition3()
+    {
+        if (ObjectChar3 == null)
+            ObjectChar3 = GameObject.FindGameObjectWithTag("Player");
+        Vector3 Playerposition;
+        Playerposition = ObjectChar3.transform.position;
+        return Playerposition;
     }
 }

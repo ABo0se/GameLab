@@ -13,7 +13,7 @@ public class Score : MonoBehaviour
     int Characteruse;
     public static int score;
     public static int score2;
-    float scoremultiplyer;
+    public float scoremultiplyer;
     int scoreboost;
     float scoremulti1;
     float scoremulti2;

@@ -9,19 +9,17 @@ public class CharacterScreen : MonoBehaviour
     private readonly string SelectedCharacter = "SelectedCharacter";
     private SpriteRenderer Char1Renderer, Char2Renderer, Char3Renderer;
     int Character;
-    void Awake()
+    private void Awake()
+    {
+        
+    }
+    void Start()
     {
         CharacterPos = Char2.transform.localPosition;
         HidePos = Char1.transform.localPosition;
         Char1Renderer = Char1.GetComponent<SpriteRenderer>();
         Char2Renderer = Char2.GetComponent<SpriteRenderer>();
         Char3Renderer = Char3.GetComponent<SpriteRenderer>();
-
-        while (PlayerRef.Play1sttime == 1)
-        {
-            PlayerPrefs.SetInt(SelectedCharacter, 2);
-            PlayerRef.Play1sttime++;
-        }
     }
     void Update()
     {

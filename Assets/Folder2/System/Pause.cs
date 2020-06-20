@@ -7,6 +7,12 @@ public class Pause : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pausemenuUI;
+    private readonly string Timescale = "Timescale";
+
+    private void Start()
+    {
+        GameIsPaused = false;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -20,7 +26,7 @@ public class Pause : MonoBehaviour
     public void Resume()
     {
         pausemenuUI.SetActive(false);
-        Time.timeScale = 1f;
+        Time.timeScale = PlayerPrefs.GetFloat(Timescale);
         GameIsPaused = false;
     }
     public void Pause2()
@@ -29,4 +35,10 @@ public class Pause : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
+    public void Quit()
+    {
+        Time.timeScale = 1f;
+        PlayerPrefs.SetFloat("Timescale", 1f);
+    }
+
 }

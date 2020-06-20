@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Item
   - Obstacle
+  - Life
+  - LevelPart
+  - BigItem
+  - Magnet
+  - RealMagnet
   layers:
   - Default
   - TransparentFX
