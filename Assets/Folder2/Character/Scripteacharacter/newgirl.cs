@@ -24,7 +24,8 @@ public class newgirl : MonoBehaviour
     int life = 2;
     public bool indestructable = false;
     public bool bigpowerupstate = false;
-
+    public bool Dead = false;
+    /// Audio
     //Use this for initialzation
     void Start()
     {
@@ -36,19 +37,23 @@ public class newgirl : MonoBehaviour
         am = GetComponent<Animator>();
         /////////////Life System///////////////
         text5.text = life.ToString();
+        Dead = false;
+        /////////////Sound
     }
     //Update is called once per frame
     void Update()
     {
+        if (Dead == false)
         transform.position += new Vector3(10f, 0, 0) * Time.deltaTime;
 
-        if (Input.GetKeyDown(Jump) && jump < 2)
+        if (Input.GetKeyDown(Jump) && jump < 2 && Dead == false)
         {
             jump++;
             am.SetBool("Jump", true);
+            GetComponent<AudioSource>().Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
         }
-        else if  (Input.GetKey(Slide) && slide < 1)
+        else if  (Input.GetKey(Slide) && slide < 1 && Dead == false)
         {
             slide++;
             am.SetBool("Slide", true);
@@ -67,15 +72,11 @@ public class newgirl : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Item"))
-        {
-            Destroy(other.gameObject);
-        }
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            Destroy(other.gameObject);
             if (indestructable == false)
             {
+                ObjectChar2.GetComponent<Animation>().Play("hurtchar2");
                 if (life - 1 > 0)
                 {
                     life--;
@@ -83,14 +84,13 @@ public class newgirl : MonoBehaviour
                 }
                 else
                 {
+                    Dead = true;
                     life--;
                     text5.text = life.ToString();
+                    am.SetBool("dead", true);
                     Time.timeScale = 1f;
                     PlayerPrefs.SetFloat("Timescale", 1f);
-                    Pause.GameIsPaused = false;
-                    PlayerPrefs.SetInt(Summaryscore, Score.score2);
-                    PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
-                    SceneManager.LoadScene("ResultScore");
+                    StartCoroutine(SmoothAnimation2());
                 }
             }
             else
@@ -99,10 +99,17 @@ public class newgirl : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Life"))
         {
-            Destroy(other.gameObject);
             IncreaseLife();
         }
     }
+    IEnumerator SmoothAnimation2()
+    {
+        yield return new WaitForSeconds(2.0f);
+        Pause.GameIsPaused = false;
+        PlayerPrefs.SetInt(Summaryscore, Score.score2);
+        PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
+        SceneManager.LoadScene("ResultScore");
+    }    
     public Vector3 GetPosition2()
     {
        if (ObjectChar2 == null)

@@ -14,6 +14,16 @@ public class RStarScore : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Score.instance.R_StarChangeScore(R_StarScore);
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
+            StartCoroutine(destroystar500());
         }
+    }
+    IEnumerator destroystar500()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 }

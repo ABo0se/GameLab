@@ -16,11 +16,11 @@ public class Destroy : MonoBehaviour
     void Update()
     {
         if (DestroyTarget == 1)
-            transform.position = new Vector3(Target1.transform.position.x - 30, 0, 0);
+            transform.position = new Vector3(Target1.transform.position.x - 50, 0, 0);
         if (DestroyTarget == 2)
-            transform.position = new Vector3(Target2.transform.position.x - 30, 0, 0);
+            transform.position = new Vector3(Target2.transform.position.x - 50, 0, 0);
         if (DestroyTarget == 3)
-            transform.position = new Vector3(Target3.transform.position.x - 30, 0, 0);
+            transform.position = new Vector3(Target3.transform.position.x - 50, 0, 0);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

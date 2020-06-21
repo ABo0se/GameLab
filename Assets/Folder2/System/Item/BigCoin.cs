@@ -15,6 +15,16 @@ public class BigCoin : MonoBehaviour
         {
             Score.instance.CoinChangeScore(ScoreValue);
             MoneyIngame.instance.CoinChangeMoney(MoneyValue);
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
+            StartCoroutine(destroybigcoin());
         }
+    }
+    IEnumerator destroybigcoin()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerRef : MonoBehaviour
 {
-    public static int money = 1500;
+    public static int money = 0;
     public static int Play1sttime = 1;
     private readonly static string SelectedCharacter = "SelectedCharacter";
 

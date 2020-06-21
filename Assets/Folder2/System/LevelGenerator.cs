@@ -55,9 +55,9 @@ public class LevelGenerator : MonoBehaviour
                 PositionChar = newgirl.GetPosition2();
                 break;
         }
-        if (Vector3.Distance(PositionChar, lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART && (spawntime % 5 != 0))
+        if (Vector3.Distance(PositionChar, lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART && (spawntime % 8 != 0))
         {
-            if (Time.timeScale <= 1.8)
+            if (Time.timeScale < 2)
             {
                 Time.timeScale += 0.05f;
                 PlayerPrefs.SetFloat("Timescale", Time.timeScale);
@@ -65,10 +65,10 @@ public class LevelGenerator : MonoBehaviour
             SpawnLevelPart();
             spawntime++;
         }
-        if (Vector3.Distance(PositionChar, lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART && (spawntime % 5 == 0))
+        if (Vector3.Distance(PositionChar, lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART && (spawntime % 8 == 0))
         {
             BonusLevelPart();
-            spawntime++;
+            spawntime = 1;
         }
     }
     private void SpawnLevelPart()

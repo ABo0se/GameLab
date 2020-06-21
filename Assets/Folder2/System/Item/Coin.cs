@@ -15,6 +15,16 @@ public class Coin : MonoBehaviour
         {
             Score.instance.CoinChangeScore(ScoreValue);
             MoneyIngame.instance.CoinChangeMoney(MoneyValue);
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
+            StartCoroutine(destroycoin());
         }
+    }
+    IEnumerator destroycoin()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 }

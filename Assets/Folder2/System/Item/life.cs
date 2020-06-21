@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class life : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        
-    }
+        if (other.CompareTag("Player"))
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
+            StartCoroutine(destroylife());
 
-    // Update is called once per frame
-    void Update()
+        }
+    }
+    IEnumerator destroylife()
     {
-        
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 }

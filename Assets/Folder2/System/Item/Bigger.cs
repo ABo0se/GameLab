@@ -48,6 +48,8 @@ public class Bigger : MonoBehaviour
                 newopp opp = other.GetComponent<newopp>();
                 if (opp.bigpowerupstate == false)
                 {
+                    AudioSource audio = GetComponent<AudioSource>();
+                    audio.Play();
                     opp.bigpowerupstate = true;
                     opp.indestructable = true;
                     other.transform.localScale *= 2;
@@ -61,6 +63,8 @@ public class Bigger : MonoBehaviour
             case 2:
                 if (big.bigpowerupstate == false)
                 {
+                    AudioSource audio = GetComponent<AudioSource>();
+                    audio.Play();
                     big.bigpowerupstate = true;
                     big.indestructable = true;
                     other.transform.localScale *= 2;
@@ -75,6 +79,8 @@ public class Bigger : MonoBehaviour
                 newredbot redbot = other.GetComponent<newredbot>();
                 if (redbot.bigpowerupstate == false)
                 {
+                    AudioSource audio = GetComponent<AudioSource>();
+                    audio.Play();
                     redbot.bigpowerupstate = true;
                     redbot.indestructable = true;
                     other.transform.localScale *= 2;
@@ -88,6 +94,8 @@ public class Bigger : MonoBehaviour
             default:
                 if (big.bigpowerupstate == false)
                 {
+                    AudioSource audio = GetComponent<AudioSource>();
+                    audio.Play();
                     big.bigpowerupstate = true;
                     big.indestructable = true;
                     other.transform.localScale *= 2;

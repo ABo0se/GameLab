@@ -24,6 +24,7 @@ public class newopp : MonoBehaviour
     int life = 2;
     public bool indestructable = false;
     public bool bigpowerupstate = false;
+    public bool Dead = false;
     public GameObject ObjectChar1;
 
     //Use this for initialzation
@@ -35,18 +36,20 @@ public class newopp : MonoBehaviour
         am = GetComponent<Animator>();
         /////////////Life System///////////////
         text4.text = life.ToString();
+        Dead = false;
     }
     //Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(10f, 0, 0) * Time.deltaTime;
-        if (Input.GetKeyDown(oppJump) && oppjump < 3)
+        if (Dead == false)
+            transform.position += new Vector3(10f, 0, 0) * Time.deltaTime;
+        if (Input.GetKeyDown(oppJump) && oppjump < 3 && Dead == false)
         {
             oppjump++;
             am.SetBool("oppjump", true);
             rb.velocity = new Vector2(rb.velocity.x, oppjumpSpeed);
         }
-        else if (Input.GetKey(oppSlide) && oppslide < 1)
+        else if (Input.GetKey(oppSlide) && oppslide < 1 && Dead == false)
         {
             oppslide++;
             am.SetBool("oppslide", true);
@@ -67,15 +70,11 @@ public class newopp : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Item"))
-        {
-            Destroy(other.gameObject);
-        }
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            Destroy(other.gameObject);
             if (indestructable == false)
             {
+                ObjectChar1.GetComponent<Animation>().Play("hurtchar1");
                 if (life - 1 > 0)
                 {
                     life--;
@@ -83,27 +82,28 @@ public class newopp : MonoBehaviour
                 }
                 else
                 {
+                    Dead = true;
                     life--;
                     text4.text = life.ToString();
+                    am.SetBool("oppdead", true);
                     Time.timeScale = 1f;
                     PlayerPrefs.SetFloat("Timescale", 1f);
-                    Pause.GameIsPaused = false;
-                    PlayerPrefs.SetInt(Summaryscore, Score.score2);
-                    PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
-                    SceneManager.LoadScene("ResultScore");
+                    StartCoroutine(SmoothAnimation1());
                 }
-            }
-            else
-            {
-
             }
         }
         if (other.gameObject.CompareTag("Life"))
         {
-            Destroy(other.gameObject);
             IncreaseLife();
-
         }
+    }
+    IEnumerator SmoothAnimation1()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Pause.GameIsPaused = false;
+        PlayerPrefs.SetInt(Summaryscore, Score.score2);
+        PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
+        SceneManager.LoadScene("ResultScore");
     }
     public void IncreaseLife()
     {

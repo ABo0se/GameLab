@@ -25,12 +25,15 @@ public class newredbot : MonoBehaviour
     int life = 3;
     public bool indestructable = false;
     public bool bigpowerupstate = false;
+    public bool Dead = false;
     public GameObject ObjectChar3;
 
 
     //Use this for initialzation
     void Start()
     {
+        bigpowerupstate = false;
+        Dead = false;
         redbotjump = 0;
         redbotslide = 0;
 
@@ -42,15 +45,16 @@ public class newredbot : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(10f, 0, 0) * Time.deltaTime;
+        if (Dead == false)
+            transform.position += new Vector3(10f, 0, 0) * Time.deltaTime;
 
-        if (Input.GetKeyDown(RedbotJump) && redbotjump < 2)
+        if (Input.GetKeyDown(RedbotJump) && redbotjump < 2 && Dead == false)
         {
             redbotjump++;
             am.SetBool("redbotjump", true);
             rb.velocity = new Vector2(rb.velocity.x, redbotjumpSpeed);
         }
-        else if (Input.GetKey(RedbotSlide) && redbotslide < 1)
+        else if (Input.GetKey(RedbotSlide) && redbotslide < 1 && Dead == false)
         {
             redbotslide++;
             am.SetBool("redbotslide", true);
@@ -69,13 +73,8 @@ public class newredbot : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Item"))
-        {
-            Destroy(other.gameObject);
-        }
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            Destroy(other.gameObject);
             if (indestructable == false)
             {
                 if (life - 1 > 0)
@@ -85,22 +84,28 @@ public class newredbot : MonoBehaviour
                 }
                 else
                 {
+                    Dead = true;
                     life--;
                     text3.text = life.ToString();
+                    am.SetBool("redbotdead", true);
                     Time.timeScale = 1f;
                     PlayerPrefs.SetFloat("Timescale", 1f);
-                    Pause.GameIsPaused = false;
-                    PlayerPrefs.SetInt(Summaryscore, Score.score2);
-                    PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
-                    SceneManager.LoadScene("ResultScore");
+                    StartCoroutine(SmoothAnimation3());
                 }
             }
         }
         if (other.gameObject.CompareTag("Life"))
         {
-            Destroy(other.gameObject);
             IncreaseLife();
         }
+    }
+    IEnumerator SmoothAnimation3()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Pause.GameIsPaused = false;
+        PlayerPrefs.SetInt(Summaryscore, Score.score2);
+        PlayerPrefs.SetInt(Summarymoney, MoneyIngame.money);
+        SceneManager.LoadScene("ResultScore");
     }
     public void IncreaseLife()
     {
