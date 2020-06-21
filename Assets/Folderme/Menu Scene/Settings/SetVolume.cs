@@ -14,8 +14,17 @@ public class SetVolume : MonoBehaviour
     public AudioMixer audioMixer;
     public AudioSource backgroundAudio;
     public AudioSource[] soundEffectsAudio;
-    private void Start()
+    void Start()
     {
+        firstplayor = PlayerPrefs.GetInt(FirstPlay);
+        if (firstplayor == 0)
+        {
+            backgroundFloat = 0.5f;
+            backgroundSlider.value = backgroundFloat;
+            PlayerPrefs.SetFloat(BackgroundPref, backgroundFloat);
+            PlayerPrefs.SetInt(FirstPlay, -1);
+        }    
+        else
         {
             backgroundFloat = PlayerPrefs.GetFloat(BackgroundPref);
             backgroundSlider.value = backgroundFloat;
@@ -33,6 +42,5 @@ public class SetVolume : MonoBehaviour
     public void UpdateSound()
     {
         backgroundAudio.volume = backgroundSlider.value;
-        backgroundSlider.value = backgroundFloat;
     }
 }
