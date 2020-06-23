@@ -28,7 +28,8 @@ public class ChooseScene : MonoBehaviour
     }
     void RandomScene()
     {
-        randomscene = Random.Range(1, 3);
+        randomscene = Random.Range(1, 4);
+        Debug.Log(randomscene);
         switch (randomscene)
         {
             case 1:
