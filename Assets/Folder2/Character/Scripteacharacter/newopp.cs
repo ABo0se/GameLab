@@ -47,6 +47,7 @@ public class newopp : MonoBehaviour
         {
             oppjump++;
             am.SetBool("oppjump", true);
+            GetComponent<AudioSource>().Play();
             rb.velocity = new Vector2(rb.velocity.x, oppjumpSpeed);
         }
         else if (Input.GetKey(oppSlide) && oppslide < 1 && Dead == false)
