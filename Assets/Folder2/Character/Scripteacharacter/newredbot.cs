@@ -52,6 +52,7 @@ public class newredbot : MonoBehaviour
         {
             redbotjump++;
             am.SetBool("redbotjump", true);
+            GetComponent<AudioSource>().Play();
             rb.velocity = new Vector2(rb.velocity.x, redbotjumpSpeed);
         }
         else if (Input.GetKey(RedbotSlide) && redbotslide < 1 && Dead == false)
