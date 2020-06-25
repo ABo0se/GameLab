@@ -66,5 +66,4 @@ public class Shop : MonoBehaviour
         SelectChar3Renderer.enabled = true;
         SelectChar3.transform.localPosition = ShowPosdetail;
     }
-
 }
