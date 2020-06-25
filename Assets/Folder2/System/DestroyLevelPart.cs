@@ -7,11 +7,11 @@ public class DestroyLevelPart : MonoBehaviour
     public GameObject Target1;
     public GameObject Target2;
     public GameObject Target3;
+    private readonly string SelectedCharacter = "SelectedCharacter";
     int DestroyTarget2;
     void Start()
     {
-        //(realcode) int DestroyTarget = PlayerPrefs.GetInt(SelectedCharacter);
-        DestroyTarget2 = 2;
+        DestroyTarget2 = PlayerPrefs.GetInt(SelectedCharacter);
     }
     void Update()
     {

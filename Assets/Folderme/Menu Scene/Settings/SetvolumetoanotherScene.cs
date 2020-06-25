@@ -18,8 +18,5 @@ public class SetvolumetoanotherScene : MonoBehaviour
         backgroundFloat = PlayerPrefs.GetFloat(BackgroundPref);
         AudioListener.volume = backgroundFloat / 3.0f;
     }
-
-
-
 }
 
